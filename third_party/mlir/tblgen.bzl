@@ -154,6 +154,7 @@ def _gentbl_rule_impl(ctx):
         executable = ctx.executable.tblgen,
         arguments = [args],
         mnemonic = "TdGenerate",  # Kythe extractor hook.
+        use_default_shell_env = True,
     )
 
     return [DefaultInfo()]
