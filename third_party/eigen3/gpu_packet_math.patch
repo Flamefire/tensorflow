@@ -1,3 +1,98 @@
+diff --git a/Eigen/src/Core/arch/AltiVec/MatrixProduct.h b/Eigen/src/Core/arch/AltiVec/MatrixProduct.h
+index 57227e23b..465b1562a 100644
+--- a/Eigen/src/Core/arch/AltiVec/MatrixProduct.h
++++ b/Eigen/src/Core/arch/AltiVec/MatrixProduct.h
+@@ -2604,20 +2604,6 @@ void gemm_pack_lhs<double, Index, DataMapper, Pack1, Pack2, Packet, RowMajor, Co
+     pack(blockA, lhs, depth, rows, stride, offset);
+ }
+ 
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-struct gemm_pack_rhs<double, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-{
+-  void operator()(double* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride=0, Index offset=0);
+-};
+-
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-void gemm_pack_rhs<double, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-  ::operator()(double* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride, Index offset)
+-{
+-  rhs_pack<double, Index, DataMapper, Packet2d, ColMajor, PanelMode> pack;
+-  pack(blockB, rhs, depth, cols, stride, offset);
+-}
+-
+ template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+ struct gemm_pack_rhs<double, Index, DataMapper, nr, RowMajor, Conjugate, PanelMode>
+ {
+@@ -2687,20 +2673,6 @@ void gemm_pack_lhs<std::complex<float>, Index, DataMapper, Pack1, Pack2, Packet,
+   pack(blockA, lhs, depth, rows, stride, offset);
+ }
+ 
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-struct gemm_pack_rhs<float, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-{
+-  void operator()(float* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride=0, Index offset=0);
+-};
+-
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-void gemm_pack_rhs<float, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-  ::operator()(float* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride, Index offset)
+-{
+-  rhs_pack<float, Index, DataMapper, Packet4f, ColMajor, PanelMode> pack;
+-  pack(blockB, rhs, depth, cols, stride, offset);
+-}
+-
+ template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+ struct gemm_pack_rhs<float, Index, DataMapper, nr, RowMajor, Conjugate, PanelMode>
+ {
+@@ -2715,20 +2687,6 @@ void gemm_pack_rhs<float, Index, DataMapper, nr, RowMajor, Conjugate, PanelMode>
+   pack(blockB, rhs, depth, cols, stride, offset);
+ }
+ 
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-struct gemm_pack_rhs<std::complex<float>, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-{
+-  void operator()(std::complex<float>* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride=0, Index offset=0);
+-};
+-
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-void gemm_pack_rhs<std::complex<float>, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-  ::operator()(std::complex<float>* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride, Index offset)
+-{
+-  rhs_cpack<float, Index, DataMapper, Packet4f, Packet2cf, ColMajor, Conjugate, PanelMode> pack;
+-  pack(blockB, rhs, depth, cols, stride, offset);
+-}
+-
+ template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+ struct gemm_pack_rhs<std::complex<float>, Index, DataMapper, nr, RowMajor, Conjugate, PanelMode>
+ {
+@@ -2771,20 +2729,6 @@ void gemm_pack_lhs<std::complex<double>, Index, DataMapper, Pack1, Pack2, Packet
+   pack(blockA, lhs, depth, rows, stride, offset);
+ }
+ 
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-struct gemm_pack_rhs<std::complex<double>, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-{
+-  void operator()(std::complex<double>* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride=0, Index offset=0);
+-};
+-
+-template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+-void gemm_pack_rhs<std::complex<double>, Index, DataMapper, nr, ColMajor, Conjugate, PanelMode>
+-  ::operator()(std::complex<double>* blockB, const DataMapper& rhs, Index depth, Index cols, Index stride, Index offset)
+-{
+-  rhs_cpack<double, Index, DataMapper, Packet2d, Packet1cd, ColMajor, Conjugate, PanelMode> pack;
+-  pack(blockB, rhs, depth, cols, stride, offset);
+-}
+-
+ template<typename Index, typename DataMapper, int nr, bool Conjugate, bool PanelMode>
+ struct gemm_pack_rhs<std::complex<double>, Index, DataMapper, nr, RowMajor, Conjugate, PanelMode>
+ {
+@@ -2992,4 +2936,4 @@ void gebp_kernel<double, std::complex<double>, Index, DataMapper, mr, nr, Conjug
+ } // end namespace internal
+ 
+ } // end namespace Eigen
+-#endif // EIGEN_MATRIX_PRODUCT_ALTIVEC_H
+\ No newline at end of file
++#endif // EIGEN_MATRIX_PRODUCT_ALTIVEC_H
 diff -ru a/Eigen/src/Geometry/arch/Geometry_SSE.h b/Eigen/src/Geometry/arch/Geometry_SSE.h
 --- a/Eigen/src/Geometry/arch/Geometry_SSE.h
 +++ b/Eigen/src/Geometry/arch/Geometry_SSE.h
