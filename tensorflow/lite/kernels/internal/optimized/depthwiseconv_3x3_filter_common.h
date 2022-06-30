@@ -124,24 +124,7 @@ inline int32x4_t vpaddq_s32(int32x4_t a, int32x4_t b) {
 #endif  // !__aarch64__
 
 #ifdef __ARM_FEATURE_DOTPROD
-// The vdotq_lane_s32 takes int8x8t for the rhs parameter, whereas the actual
-// instruction selects from between 4 32-bit (4x8-bit packed) sub-registers, an
-// unusual interpretation of "lane".
-inline int32x4_t vdotq_four_lane_s32(int32x4_t acc, int8x16_t lhs,
-                                     int8x16_t rhs, const int lane) {
-  switch (lane) {
-    case 0:
-      return vdotq_lane_s32(acc, lhs, vget_low_s8(rhs), 0);
-    case 1:
-      return vdotq_lane_s32(acc, lhs, vget_low_s8(rhs), 1);
-    case 2:
-      return vdotq_lane_s32(acc, lhs, vget_high_s8(rhs), 0);
-    case 3:
-    default:
-      return vdotq_lane_s32(acc, lhs, vget_high_s8(rhs), 1);
-  }
-}
-
+#define vdotq_four_lane_s32 vdotq_lane_s32
 #else
 
 inline int32x4_t vdotq_s32(int32x4_t acc, int8x16_t lhs, int8x16_t rhs) {
