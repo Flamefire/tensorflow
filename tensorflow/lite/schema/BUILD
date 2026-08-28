@@ -118,10 +118,6 @@ py_test(
 # )
 # copybara:uncomment_end
 
-exports_files([
-    "conversion_metadata.fbs",
-])
-
 # copybara:uncomment_begin(google-only)
 # flatbuffer_cc_library(
 #     name = "schema_fbs",
