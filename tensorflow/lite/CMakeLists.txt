@@ -412,10 +412,6 @@ if(TFLITE_ENABLE_GPU)
     ${TFLITE_SOURCE_DIR}/tools/versioning/op_signature.cc
     ${TF_SOURCE_DIR}/compiler/mlir/lite/tools/versioning/op_signature.cc
   )
-  include_directories(
-    AFTER
-    ${TFLITE_SOURCE_DIR}/delegates/gpu/common
-    ${TFLITE_SOURCE_DIR}/delegates/gpu/common/task
   )
   if(TFLITE_ENABLE_METAL AND "${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
     #
